@@ -1,4 +1,6 @@
 # 1 char = 1 byte
+# 1 kb = 1024 byte
+# 1 mb = 1024 kb
 MAX_RECORD_SIZE = 1024 * 1024
 MAX_BATCH_SIZE = 5 * MAX_RECORD_SIZE
 MAX_BATCH_LEN = 500
