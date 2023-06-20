@@ -1,7 +1,8 @@
 # F-Secure hiring challenge
 Solution to the F-Secure hiring challenge - Protection Platform Team
 
-The solution has been written and tested with Python version 3.10.6.
+## Overview
+The solution has been written and tested with Python version 3.10.6. It has also been linted by `black`, `isort` and `mypy`.
 
 If you want to setup the virtual environment first, please make sure python3.10-venv is installed or install it by running:
 
@@ -39,3 +40,12 @@ Once you have installed the Python library, you can import it using:
 `from batchlib import utils`
 or
 `from batchlib.utils import create_output_records`
+
+## Discussion
+This solution is a very straightforward approach and can be further optimized, however, there is not enough information in the problem description. Below are a few discussion points that can help guide a better implementation or optimization.
+
+- What is the maximum number of input records received? The library will take a longer time to process a very large input records array (time complexity is O(n)), which may block the services that use it. One way to mitigate blocking the service's main thread would be to execute this code in a seperate thread or in the background if the input records are considerably large.
+
+- How is this library going to be used? The library stores output batches in memory while processing. This can mitigated by increasing RAM on the target machine/server, but implies that every service that uses this library will require more memory.
+
+- What kind of string input is received here? Can the input records include code? While the library source code itself is not subject to a code injection threat (i.e. it does not execute any code directly or call the subinterpreter); it will still foward the records as is, which is something to consider while designing the services that use it.

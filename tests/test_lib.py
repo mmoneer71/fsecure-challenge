@@ -63,6 +63,7 @@ def test_max_500_record():
         + ["ccccccccccccc", "ddddddddddddd"] * 200,
     ]
 
+
 def test_all_records_invalid():
     sample_input = [
         "aaaaaaaaaaaaaaaaaa" * MAX_RECORD_SIZE,
@@ -72,43 +73,106 @@ def test_all_records_invalid():
     output = create_output_records(sample_input)
     assert output == []
 
+
 def test_large_input():
     sample_input = [
-            "a" * MAX_RECORD_SIZE,
-            "b" * MAX_RECORD_SIZE,
-            "c" * MAX_RECORD_SIZE,
-            "d" * MAX_RECORD_SIZE,
-            "e" * MAX_RECORD_SIZE,
-        ] * 1000
+        "a" * MAX_RECORD_SIZE,
+        "b" * MAX_RECORD_SIZE,
+        "c" * MAX_RECORD_SIZE,
+        "d" * MAX_RECORD_SIZE,
+        "e" * MAX_RECORD_SIZE,
+    ] * 1000
     output = create_output_records(sample_input)
     expected_single_batch = [
-            "a" * MAX_RECORD_SIZE,
-            "b" * MAX_RECORD_SIZE,
-            "c" * MAX_RECORD_SIZE,
-            "d" * MAX_RECORD_SIZE,
-            "e" * MAX_RECORD_SIZE,
-        ]
+        "a" * MAX_RECORD_SIZE,
+        "b" * MAX_RECORD_SIZE,
+        "c" * MAX_RECORD_SIZE,
+        "d" * MAX_RECORD_SIZE,
+        "e" * MAX_RECORD_SIZE,
+    ]
     expected_output = []
     for _ in range(0, 1000):
         expected_output.append(expected_single_batch)
     assert output == expected_output
 
+
+def test_large_input_again():
+    sample_input = [
+        "a" * MAX_RECORD_SIZE,
+        "b" * MAX_RECORD_SIZE,
+        "c" * MAX_RECORD_SIZE,
+        "d" * MAX_RECORD_SIZE,
+        "e" * MAX_RECORD_SIZE,
+        "f" * MAX_RECORD_SIZE,
+    ] * 1000
+    output = create_output_records(sample_input)
+    expected_repeated_output = [
+        [
+            "a" * MAX_RECORD_SIZE,
+            "b" * MAX_RECORD_SIZE,
+            "c" * MAX_RECORD_SIZE,
+            "d" * MAX_RECORD_SIZE,
+            "e" * MAX_RECORD_SIZE,
+        ],
+        [
+            "f" * MAX_RECORD_SIZE,
+            "a" * MAX_RECORD_SIZE,
+            "b" * MAX_RECORD_SIZE,
+            "c" * MAX_RECORD_SIZE,
+            "d" * MAX_RECORD_SIZE,
+        ],
+        [
+            "e" * MAX_RECORD_SIZE,
+            "f" * MAX_RECORD_SIZE,
+            "a" * MAX_RECORD_SIZE,
+            "b" * MAX_RECORD_SIZE,
+            "c" * MAX_RECORD_SIZE,
+        ],
+        [
+            "d" * MAX_RECORD_SIZE,
+            "e" * MAX_RECORD_SIZE,
+            "f" * MAX_RECORD_SIZE,
+            "a" * MAX_RECORD_SIZE,
+            "b" * MAX_RECORD_SIZE,
+        ],
+        [
+            "c" * MAX_RECORD_SIZE,
+            "d" * MAX_RECORD_SIZE,
+            "e" * MAX_RECORD_SIZE,
+            "f" * MAX_RECORD_SIZE,
+            "a" * MAX_RECORD_SIZE,
+        ],
+        [
+            "b" * MAX_RECORD_SIZE,
+            "c" * MAX_RECORD_SIZE,
+            "d" * MAX_RECORD_SIZE,
+            "e" * MAX_RECORD_SIZE,
+            "f" * MAX_RECORD_SIZE,
+        ],
+    ]
+
+    expected_output = []
+    for _ in range(0, 200):
+        expected_output.extend(expected_repeated_output)
+    assert output == expected_output
+
+
 def test_even_larger_input():
     sample_input = [
-            "a" * MAX_RECORD_SIZE,
-            "b" * MAX_RECORD_SIZE,
-            "c" * MAX_RECORD_SIZE,
-            "d" * MAX_RECORD_SIZE,
-            "e" * MAX_RECORD_SIZE,
-        ] * 10000
+        "a" * MAX_RECORD_SIZE,
+        "b" * MAX_RECORD_SIZE,
+        "c" * MAX_RECORD_SIZE,
+        "d" * MAX_RECORD_SIZE,
+        "e" * MAX_RECORD_SIZE,
+    ] * 10000
     output = create_output_records(sample_input)
     expected_single_batch = [
-            "a" * MAX_RECORD_SIZE,
-            "b" * MAX_RECORD_SIZE,
-            "c" * MAX_RECORD_SIZE,
-            "d" * MAX_RECORD_SIZE,
-            "e" * MAX_RECORD_SIZE,
-        ]
+        "a" * MAX_RECORD_SIZE,
+        "b" * MAX_RECORD_SIZE,
+        "c" * MAX_RECORD_SIZE,
+        "d" * MAX_RECORD_SIZE,
+        "e" * MAX_RECORD_SIZE,
+    ]
     expected_output = []
     for _ in range(0, 10000):
         expected_output.append(expected_single_batch)

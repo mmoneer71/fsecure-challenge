@@ -12,9 +12,8 @@ def create_output_records(records: List[str]) -> List[List[str]]:
             continue
         if len(output_batch) >= MAX_BATCH_LEN or curr_batch_size >= MAX_BATCH_SIZE:
             output_records.append(output_batch)
-            output_batch = [record]
-            curr_batch_size = len(record)
-            continue
+            output_batch = []
+            curr_batch_size = 0
         curr_batch_size += len(record)
         output_batch.append(record)
     if records and output_batch:
