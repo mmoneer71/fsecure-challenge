@@ -2,6 +2,13 @@
 Solution to the F-Secure hiring challenge - Protection Platform Team
 
 ## Overview
+Simple Python Library that accepts a list of string records of variable length and batches it into an array of arrays. These batches are delivered to a system with the following constraints:
+
+- Maximum size of output record is 1 MB, larger records are discarded
+- Maximum size of output batch is 5 MB
+- Maximum number of records in an output batch is 500
+
+## Installation
 The solution has been written and tested with Python version 3.10.6. It has also been linted by `black`, `isort` and `mypy`.
 
 If you want to setup the virtual environment first, please make sure python3.10-venv is installed or install it by running:
